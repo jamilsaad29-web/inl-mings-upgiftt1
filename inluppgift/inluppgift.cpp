@@ -4,13 +4,14 @@
 #include <limits>
 #include <cmath>
 #include <cstdlib> 
-#include <ctime>   
+#include <ctime>
 
 using namespace std;
 
 // Struct for measurement
 struct Measurement {
     double value; // Holds a single measurement value
+    //string timestamp;
 };
 
 // Function declarations
@@ -41,7 +42,7 @@ int main() {
 
         // Validate user input
         while (!(cin >> choice) || choice < 1 || choice > 7) {
-            cout << "Invalid input. Enter 1â€“7: ";
+            cout << "Invalid input. Enter 1–7: ";
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
@@ -200,7 +201,7 @@ void simulate_sensor(vector<Measurement>& values) {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    // Generate random values between 20â€“30
+    // Generate random values between 20–30
     for (int i = 0; i < amount; i++) {
         double v = 20.0 + ((double)rand() / RAND_MAX) * 10.0;
         Measurement m;
