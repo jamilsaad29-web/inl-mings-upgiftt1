@@ -1,7 +1,4 @@
-
 #include <iostream>
-#include <vector>
-#include "Measurement.h"
 #include "Statistics.h"
 
 int main() {

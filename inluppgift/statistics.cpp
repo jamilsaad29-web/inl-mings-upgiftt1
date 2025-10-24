@@ -5,13 +5,21 @@
 #include <cstdlib>
 #include <ctime>
 
-Statistics::Statistics() {
-    // this constructor is intentionally left blank 
-}
+Statistics::Statistics() {}
 
 void Statistics::addMeasurement(double value) {
     Measurement m(value);
     measurements.push_back(m);
+}
+
+void Statistics::addMeasurements() {
+    int count = getCount();
+
+    for (int i = 0; i < count; i++) {
+        std::cout << "Enter value " << (i + 1) << ": ";
+        double value = getNumber();
+        addMeasurement(value);
+    }
 }
 
 void Statistics::showAllMeasurements() {
@@ -22,7 +30,8 @@ void Statistics::showAllMeasurements() {
 
     std::cout << "\nAll measurements:\n";
     for (int i = 0; i < measurements.size(); i++) {
-        std::cout << "Value " << (i + 1) << ": " << measurements[i].getValue() << "\n";
+        std::cout << "Value " << (i + 1) << ": " << measurements[i].getValue()
+            << " (Time: " << measurements[i].getTimestamp() << ")\n";
     }
 }
 
@@ -87,6 +96,13 @@ void Statistics::sortMeasurements() {
             });
         std::cout << "Sorted descending.\n";
     }
+    else {
+        std::cout << "Invalid choice.\n";
+        return;
+    }
+
+    // Visa alla mätningar direkt efter sortering
+    showAllMeasurements();
 }
 
 void Statistics::showBarChart() {
@@ -193,14 +209,4 @@ int Statistics::getCount() {
     std::cout << "How many? ";
     std::cin >> count;
     return count;
-}
-
-void Statistics::addMeasurements() {
-    int count = getCount();
-
-    for (int i = 0; i < count; i++) {
-        std::cout << "Enter value " << (i + 1) << ": ";
-        double value = getNumber();
-        addMeasurement(value);
-    }
 }

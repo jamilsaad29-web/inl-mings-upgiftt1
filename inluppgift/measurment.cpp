@@ -1,17 +1,13 @@
-#include "measurement.h"
+#include "Measurement.h"
 #include <iostream>
-#include <vector>
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <sstream>
+#include <iomanip>
 
-Measurement::Measurement() {
-    value = 0.0;
-}
-
-Measurement::Measurement(double v) {
-    value = v;
-}
+Measurement::Measurement() : value(0.0), timestamp(nowTimestamp()) {}
+Measurement::Measurement(double v) : value(v), timestamp(nowTimestamp()) {}
 
 double Measurement::getValue() const {
     return value;
@@ -19,7 +15,31 @@ double Measurement::getValue() const {
 
 void Measurement::setValue(double v) {
     value = v;
+    timestamp = nowTimestamp();
 }
+
+const std::string& Measurement::getTimestamp() const {
+    return timestamp;
+}
+
+void Measurement::setTimestamp(const std::string& ts) {
+    timestamp = ts;
+}
+
+std::string Measurement::nowTimestamp() {
+    std::time_t t = std::time(nullptr);
+    std::tm localTm;
+#if defined(_MSC_VER)
+    localtime_s(&localTm, &t);
+#else
+    localtime_r(&t, &localTm);
+#endif
+    std::ostringstream ss;
+    ss << std::put_time(&localTm, "%Y-%m-%d %H:%M:%S");
+    return ss.str();
+}
+
+// --- MeasurementCollection implementation ---
 
 void MeasurementCollection::addMeasurement(double value) {
     Measurement m(value);
@@ -34,7 +54,8 @@ void MeasurementCollection::showAllMeasurements() {
 
     std::cout << "\nAll measurements:\n";
     for (int i = 0; i < measurements.size(); i++) {
-        std::cout << "Value " << (i + 1) << ": " << measurements[i].getValue() << "\n";
+        std::cout << "Value " << (i + 1) << ": " << measurements[i].getValue()
+            << " (Time: " << measurements[i].getTimestamp() << ")\n";
     }
 }
 

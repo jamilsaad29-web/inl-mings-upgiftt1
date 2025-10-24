@@ -2,10 +2,14 @@
 #define MEASUREMENT_H
 
 #include <vector>
+#include <string>
 
 class Measurement {
 private:
     double value;
+    std::string timestamp;
+
+    std::string nowTimestamp();
 
 public:
     Measurement();
@@ -13,6 +17,9 @@ public:
 
     double getValue() const;
     void setValue(double v);
+
+    const std::string& getTimestamp() const;
+    void setTimestamp(const std::string& ts);
 };
 
 class MeasurementCollection {
