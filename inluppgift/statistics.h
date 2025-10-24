@@ -3,12 +3,12 @@
 
 #include <vector>
 #include "Measurement.h"
-
+// Klass som hanterar programmets logik och statistikfunktioner
 class Statistics {
 private:
     std::vector<Measurement> measurements;
 
-public:
+public:   // Endast klassen kan använda detta
     Statistics();
     void addMeasurement(double value);
     void addMeasurements();
@@ -19,7 +19,7 @@ public:
     void generateRandomData();
     void runProgram();
 
-private:
+private:      // Alla kan använda dessa funktioner
     void showMenu();
     int getChoice();
     double getNumber();
